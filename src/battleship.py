@@ -1,5 +1,6 @@
 # BattleShip Lite
 from tabulate import tabulate
+import re
 
 
 # First, a Game map class is created, properties rows, cols also a game_map
@@ -29,11 +30,25 @@ class Game_map:
 # Player class is created with the Player's name as a property.
 class Player:
     def __init__(self) -> None:
-        name = input("Please enter your name :")
-        self.name = name
+        self.name = ""
 
-    # Greet player
+    # Greet player method asks for the player's name first, check it against
+    # the regex pattern: name can contain upper and lower cases, space,
+    # underscore, and hyphen and it has to be between 2 and 25 characters long.
+    # In case the name is invalid a ValueError is raised and a new
+    # name needs to be typed in. After a valid name is given, a greeting, that
+    # includes the user name, is printed.
     def greet_player(self):
+        while True:
+            try:
+                self.name = input("Please enter your name :")
+                if (bool(re.fullmatch('^[a-zA-Z0-9 _-]{2,25}+$', self.name))):
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
+                print('The name is not valid!')
+                continue
         print(f'Hello {self.name}, let\'s start the game!')
 
 
@@ -43,9 +58,9 @@ def main():
     player = Player()
     player.greet_player()
     # Create game map object and call its methods to create and print game map
-    game_map = Game_map()
+    """ game_map = Game_map()
     game_map.create_game_map()
-    game_map.print_game_map()
+    game_map.print_game_map() """
 
 
 # Allow file execution when it is not an imported module.
