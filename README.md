@@ -61,6 +61,18 @@ After the map is built and ships are arranged on the map, the Player can start t
 
 # Features
 
+## Greeting player
+
+When the player starts the game, the player name is asked and checked for validity. After a valid user name is given the player is greeted by the application.
+
+![greet player](./docs/greet_player.png)
+
+## Game Map creation
+
+To start the game a game map needs to be created, first an empty map is built up with zeros and later ships will be added to the map. Zeros indicate that is nothing on the map at that coordinate.
+
+![game map empty](./docs/game_map_empty.png)
+
 # Implementation plan
 
 [Trello Board](https://trello.com/b/aTdTEYkF/battleship-lite)
