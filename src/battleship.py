@@ -26,9 +26,23 @@ class Game_map:
         return self.game_map
 
 
-# game control
+# Player class is created with the Player's name as a property.
+class Player:
+    def __init__(self) -> None:
+        name = input("Please enter your name :")
+        self.name = name
+
+    # Greet player
+    def greet_player(self):
+        print(f'Hello {self.name}, let\'s start the game!')
+
+
+# Game control
 def main():
-    # create game map object and call its methods to create and print game map
+    # Create player object and call its methods to greet the player
+    player = Player()
+    player.greet_player()
+    # Create game map object and call its methods to create and print game map
     game_map = Game_map()
     game_map.create_game_map()
     game_map.print_game_map()

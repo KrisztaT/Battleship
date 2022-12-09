@@ -40,12 +40,35 @@ You must include:
 - how to use any command line arguments made for the application -->
 # Battleship Lite
 
+Battleship Lite is a solo game, played on a 10 * 10 map (grid), each grid square is identified with a letter and a number. The application automatically arranges the ships either vertically or horizontally on the map. Five ships are placed on the game board, their type determines how many grid squares they take up:
+
+* Carrier (5)
+* Battleship (4)
+* Cruiser (3)
+* Submarine (3)
+* Destroyer (2)
+
+It is important to note that the ships can not overlap and they are hidden from the Player.
+After the map is built and ships are arranged on the map, the Player can start the discovery of the ships by shooting to a target. The application provides feedback (graphically on the map and via textual information below the map) about the result of the shot (i.e.: hit or miss or sinking ship). The game continues until all of the ships were discovered or the Player types exit.
+
 # Source control repository
 
-# Style Guide
+[Battleship Lite Github Repository](https://github.com/KrisztaT/Battleship)
+
+# Style Convention
+
+**PEP 8** was utilised as a style convention during the development of the terminal application. I enabled linting in VSC and installed the pycodestyle (pep8) extension to aid me.
 
 # Features
 
 # Implementation plan
+
+[Trello Board](https://trello.com/b/aTdTEYkF/battleship-lite)
+
+![Initial Trello Board](./docs/221208Trello.png)
+
+![Trello Board](./docs/221209TrelloBoard.png)
+
+![Start Game Trello card details](./docs/221209TrelloStartCard.png)
 
 # Help documentation
