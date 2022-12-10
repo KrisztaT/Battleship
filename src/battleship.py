@@ -27,6 +27,55 @@ class Game_map:
         return self.game_map
 
 
+class Ships:
+    def __init__(self, ship_type, length, map_id) -> None:
+        self.ship_type = ship_type
+        self.length = length
+        self.life = length
+        self.map_id = map_id
+        self.is_alive = True
+
+    def get_ship_type(self):
+        return self.ship_type
+
+    def get_length(self):
+        return self.length
+
+    def get_life(self):
+        return self.life
+
+    def decrease_life(self):
+        self.life -= 1
+
+    def get_map_id(self):
+        return self.map_id
+
+
+class Carrier(Ships):
+    def __init__(self, map_id=5) -> None:
+        super().__init__('carrier', 5, map_id)
+
+
+class Battleship(Ships):
+    def __init__(self, map_id=4) -> None:
+        super().__init__('battleship', 4, map_id)
+
+
+class Cruiser(Ships):
+    def __init__(self, map_id=3) -> None:
+        super().__init__('cruiser', 3, map_id)
+
+
+class Submarine(Ships):
+    def __init__(self, map_id=1) -> None:
+        super().__init__('submarine', 3, map_id)
+
+
+class Destroyer(Ships):
+    def __init__(self, map_id=2) -> None:
+        super().__init__('destroyer', 2, map_id)
+
+
 # Player class is created with the Player's name as a property.
 class Player:
     def __init__(self) -> None:
