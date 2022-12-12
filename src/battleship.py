@@ -24,6 +24,18 @@ class Game_map:
         print(tabulate(self.game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1)))
 
+    def print_user_game_map(self):
+        headers = 'ABCDEFGHIJ'
+        player_game_map = [['']*self.cols for _ in range(self.rows)]
+        for i in range(self.rows):
+            for j in range(self.cols):
+                match (self.game_map[i][j]):
+                    case 0 | 1 | 2 | 3 | 4 | 5: player_game_map[i][j] = ''
+                    case 'X': player_game_map[i][j] = 'X'
+                    case '~': player_game_map[i][j] = '~'
+        print(tabulate(player_game_map, headers=headers, tablefmt='fancy_grid',
+              showindex=range(1, self.rows + 1), stralign='center'))
+
     # mainly for test purposes, gives back the game map
     def get_game_map(self):
         return self.game_map
@@ -152,9 +164,9 @@ def main():
     # Create game map object and call its methods to create and print game map
     game_map = Game_map()
     game_map.create_game_map()
-    game_map.print_game_map()
     game_map.add_ships()
     game_map.print_game_map()
+    game_map.print_user_game_map()
 
 
 # Allow file execution when it is not an imported module.
