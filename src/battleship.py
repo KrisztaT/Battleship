@@ -28,11 +28,30 @@ class Game_map:
     def get_game_map(self):
         return self.game_map
 
-    # random orientation and coordinate generation
-    def generate_random_location(self):
-        self.orientation = choice(['H', 'V'])
-        self.rand_x = randint(0, 9 - len)
-        self.rand_y = randint(0, 9 - len)
+    # add ships to the map
+    def add_ships(self):
+        self.ships = [Carrier(), Battleship(), Cruiser(),
+                      Submarine(), Destroyer()]
+
+        # random orientation and coordinate generation
+        def generate_random_location(self):
+            self.orientation = choice(['H', 'V'])
+            self.rand_x = randint(0, 9 - len)
+            self.rand_y = randint(0, 9 - len)
+
+        # add ships to the map based on id, no overlap examination yet
+        for ship in self.ships:
+            len = ship.get_length()
+            generate_random_location(self)
+
+            if self.orientation == 'H':
+                for j in range(len):
+                    id = ship.get_map_id()
+                    self.game_map[self.rand_y][self.rand_x + j] = id
+            else:
+                for j in range(len):
+                    id = ship.get_map_id()
+                    self.game_map[self.rand_y + j][self.rand_x] = id
 
 
 # parent Ships class is defined with properties that all ships have common
@@ -103,7 +122,7 @@ class Player:
     def greet_player(self):
         while True:
             try:
-                self.name = input("Please enter your name :")
+                self.name = input("Please enter your name: ")
                 if (bool(re.fullmatch('^[a-zA-Z0-9 _-]{2,25}+$', self.name))):
                     break
                 else:
@@ -122,6 +141,8 @@ def main():
     # Create game map object and call its methods to create and print game map
     game_map = Game_map()
     game_map.create_game_map()
+    game_map.print_game_map()
+    game_map.add_ships()
     game_map.print_game_map()
 
 
