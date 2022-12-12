@@ -1,5 +1,7 @@
 # BattleShip Lite
 from tabulate import tabulate
+from random import randint
+from random import choice
 import re
 
 
@@ -25,6 +27,12 @@ class Game_map:
     # mainly for test purposes, gives back the game map
     def get_game_map(self):
         return self.game_map
+
+    # random orientation and coordinate generation
+    def generate_random_location(self):
+        self.orientation = choice(['H', 'V'])
+        self.rand_x = randint(0, 9 - len)
+        self.rand_y = randint(0, 9 - len)
 
 
 # parent Ships class is defined with properties that all ships have common
