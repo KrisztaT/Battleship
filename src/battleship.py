@@ -27,6 +27,8 @@ class Game_map:
         return self.game_map
 
 
+# parent Ships class is defined with properties that all ships have common
+# also getters for the properties were added for use of other methods
 class Ships:
     def __init__(self, ship_type, length, map_id) -> None:
         self.ship_type = ship_type
@@ -44,6 +46,7 @@ class Ships:
     def get_life(self):
         return self.life
 
+    # decrease_life method is for decrease ship life once it was hit.
     def decrease_life(self):
         self.life -= 1
 
@@ -51,6 +54,8 @@ class Ships:
         return self.map_id
 
 
+# Each different ships has its own class with individual property values
+# and all inherits property and methods from Ships
 class Carrier(Ships):
     def __init__(self, map_id=5) -> None:
         super().__init__('carrier', 5, map_id)
@@ -107,9 +112,9 @@ def main():
     player = Player()
     player.greet_player()
     # Create game map object and call its methods to create and print game map
-    """ game_map = Game_map()
+    game_map = Game_map()
     game_map.create_game_map()
-    game_map.print_game_map() """
+    game_map.print_game_map()
 
 
 # Allow file execution when it is not an imported module.
