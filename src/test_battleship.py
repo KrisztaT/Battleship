@@ -104,3 +104,22 @@ def test_destroyer_length():
     test_map.add_ships()
     map = test_map.get_game_map()
     assert sum(row.count(2) for row in map) == 2
+
+
+# test_submarine_placement() examines if the submarine is placed on the map
+def test_submarine_placement():
+    test_map = Game_map()
+    test_map.create_game_map()
+    test_map.add_ships()
+    map = test_map.get_game_map()
+    assert any(1 in sublist for sublist in map)  # the submarine
+    # map_id is 1, so that is what I looked for
+
+
+# Submarine ship length examination, ship length is 3.
+def test_submarine_length():
+    test_map = Game_map()
+    test_map.create_game_map()
+    test_map.add_ships()
+    map = test_map.get_game_map()
+    assert sum(row.count(1) for row in map) == 3
