@@ -42,7 +42,18 @@ class Game_map:
         # add ships to the map based on id, no overlap examination yet
         for ship in self.ships:
             len = ship.get_length()
-            generate_random_location(self)
+            is_grid_free = False
+            while not is_grid_free:
+                is_grid_free = True
+                generate_random_location(self)
+                if self.orientation == 'H':
+                    for j in range(len):
+                        if self.game_map[self.rand_y][self.rand_x + j] != 0:
+                            is_grid_free = False
+                else:
+                    for j in range(len):
+                        if self.game_map[self.rand_y + j][self.rand_x] != 0:
+                            is_grid_free = False
 
             if self.orientation == 'H':
                 for j in range(len):
