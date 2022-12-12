@@ -39,3 +39,14 @@ def test_carrier_placement():
     assert any(5 in sublist for sublist in map)  # to check if an item is in
     # the 2D list, any is used, it returns True if item is found.
     # In this case the carrier ship map_id is 5, so that is what I looked for
+
+
+# ships are placed in a continuos horizontal or vertical line, hence
+# counting how many 5s (carrier ship id) can be seen in the map gives
+# back the carrier's length (5)
+def test_carrier_length():
+    test_map = Game_map()
+    test_map.create_game_map()
+    test_map.add_ships()
+    map = test_map.get_game_map()
+    assert sum(row.count(5) for row in map) == 5
