@@ -1,5 +1,6 @@
 # Battleship tests
 from battleship import Game_map
+from battleship import Player
 
 
 #  test_create_game_map() examines whether a game map has been built up
@@ -123,3 +124,19 @@ def test_submarine_length():
     test_map.add_ships()
     map = test_map.get_game_map()
     assert sum(row.count(1) for row in map) == 3
+
+
+# test x coordinate translator
+def test_x_translator():
+    player = Player()
+    test_coordinate = ['D', 4]
+    x = player.x_coordinate_translator(test_coordinate)
+    assert x == 3
+
+
+# test y coordinate translator
+def test_y_translator():
+    player = Player()
+    test_coordinate = ['D', 4]
+    y = player.y_coordinate_translator(test_coordinate)
+    assert y == 3
