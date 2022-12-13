@@ -55,13 +55,12 @@ class Game_map:
                       Submarine(), Destroyer()]
 
         # random orientation and coordinate generation
-        # it does not allow the generation of out of range coordinates
         def generate_random_location(self):
             self.orientation = choice(['H', 'V'])
-            self.rand_x = randint(0, 9 - len)
-            self.rand_y = randint(0, 9 - len)
+            self.rnd_x = randint(0, 9)
+            self.rnd_y = randint(0, 9)
 
-        # add ships to the map based on id, it examines overlay
+        # add ships to the map based on id, it examines overlay and hang off
         for ship in self.ships:
             len = ship.get_length()
             is_grid_free = False
@@ -70,21 +69,34 @@ class Game_map:
                 generate_random_location(self)
                 if self.orientation == 'H':
                     for j in range(len):
-                        if self.game_map[self.rand_y][self.rand_x + j] != 0:
+                        # try-except block is used, because random generation
+                        # might result in a coordinate that leads to the ship
+                        # hang off the map. So in that case an IndexError is
+                        # thrown, the except block handle that with giving the
+                        # is_grid_free variable a False value, so a new
+                        # location generation is triggered within the while
+                        # loop
+                        try:
+                            if self.game_map[self.rnd_y][self.rnd_x + j] != 0:
+                                is_grid_free = False
+                        except IndexError:
                             is_grid_free = False
                 else:
                     for j in range(len):
-                        if self.game_map[self.rand_y + j][self.rand_x] != 0:
+                        try:
+                            if self.game_map[self.rnd_y + j][self.rnd_x] != 0:
+                                is_grid_free = False
+                        except IndexError:
                             is_grid_free = False
 
             if self.orientation == 'H':
                 for j in range(len):
                     id = ship.get_map_id()
-                    self.game_map[self.rand_y][self.rand_x + j] = id
+                    self.game_map[self.rnd_y][self.rnd_x + j] = id
             else:
                 for j in range(len):
                     id = ship.get_map_id()
-                    self.game_map[self.rand_y + j][self.rand_x] = id
+                    self.game_map[self.rnd_y + j][self.rnd_x] = id
 
     # shoot and feedback method examine the coordinate coming from the
     # handle_shot_coordinates method in the Player class
@@ -144,6 +156,8 @@ class Ships:
         return self.life
 
     # decrease_life method is for decrease ship life once it was hit.
+    # examining if the ship life is 0, in that case the ship
+    # is_alive variable gets the False value
     def decrease_life(self):
         self.life -= 1
         if self.life == 0:
