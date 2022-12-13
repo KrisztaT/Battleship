@@ -24,7 +24,8 @@ class Game_map:
         print(tabulate(self.game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1)))
 
-    # print game map for user it hides the ships
+    # print game map for user it hides the ships, in case of miss ~
+    # will be put in the map, in case of hit X.
     def print_user_game_map(self):
         headers = 'ABCDEFGHIJ'
         player_game_map = [['']*self.cols for _ in range(self.rows)]
@@ -47,12 +48,13 @@ class Game_map:
                       Submarine(), Destroyer()]
 
         # random orientation and coordinate generation
+        # it does not allow the generation of out of range coordinates
         def generate_random_location(self):
             self.orientation = choice(['H', 'V'])
             self.rand_x = randint(0, 9 - len)
             self.rand_y = randint(0, 9 - len)
 
-        # add ships to the map based on id, no overlap examination yet
+        # add ships to the map based on id, it examines overlay
         for ship in self.ships:
             len = ship.get_length()
             is_grid_free = False
@@ -159,11 +161,20 @@ class Player:
     # handle shot coordinates ask for user input about the coordinates
     # translate given coordinates to 2D list indexes
     def handle_shot_coordinates(self, map):
-        coordinates = input('Please enter the coordinates (i.e.: A,5): ')
-        coordinates_list = coordinates.split(',')
-        x = self.x_coordinate_translator(coordinates_list)
-        y = self.y_coordinate_translator(coordinates_list)
-        print(x, y)
+        # until the appropriate loop condition can not be added, for test
+        # it is defined like this
+        i = 0
+        while (i < 5):
+            try:
+                coordinates = input('Please enter the coordinates (i.e.: A,5): ')
+                coordinates_list = coordinates.split(',')
+                x = self.x_coordinate_translator(coordinates_list)
+                y = self.y_coordinate_translator(coordinates_list)
+                print(x, y)
+                i += 1
+            except UnboundLocalError:
+                print('Please enter valid coordinates (i.e.: A,5).')
+                continue
 
     # translate the the first element of coordinate_ list
     # i.e.: B to list index which is 1 in case of B.
