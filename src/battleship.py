@@ -82,7 +82,7 @@ class Game_map:
                     id = ship.get_map_id()
                     self.game_map[self.rand_y + j][self.rand_x] = id
 
-    # shoot and feedback method examine the coordinate coming from the 
+    # shoot and feedback method examine the coordinate coming from the
     # handle_shot_coordinates method in the Player class
     # if there is a ~ or X it means there was a shot there before, so the app
     # gives back the message Already shot there!
@@ -97,8 +97,16 @@ class Game_map:
             self.game_map[y][x] = '~'
             self.msg = 'Missed'
         elif (int(self.game_map[y][x]) > 0):
+            for ship in self.ships:
+                if (ship.get_map_id() == self.game_map[y][x]):
+                    ship_name = ship.get_ship_type()
+                    ship.decrease_life()
+                    ship_life = ship.get_life()
             self.game_map[y][x] = 'X'
-            self.msg = 'Hit'
+            if (ship_life > 0):
+                self.msg = 'Hit a ' + ship_name + ' that has ' + str(ship_life) + ' life left.'
+            else:
+                self.msg = 'Good Job! You sunk a ' + ship_name + "."
         self.print_user_game_map()
 
 
