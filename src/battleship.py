@@ -89,7 +89,9 @@ class Game_map:
     # if there was no ship on the map (0) at the shot coordinate before
     # then puts a ~ in the map to that coordinate and gives the message Missed
     # if there is a ship on the map (1,2,3,4,5) at the shot coordinate
-    # then puts an X in the map to that coordinate and gives the message Hit
+    # then puts an X in the map to that coordinate and gives the message
+    # which ship was hit and how much life it has, or if a ship were sunk,
+    # it is also printed
     def shoot_and_feedback(self, x, y):
         if (self.game_map[y][x] == '~' or self.game_map[y][x] == 'X'):
             self.msg = 'Already shot there!'
@@ -104,10 +106,18 @@ class Game_map:
                     ship_life = ship.get_life()
             self.game_map[y][x] = 'X'
             if (ship_life > 0):
-                self.msg = 'Hit a ' + ship_name + ' that has ' + str(ship_life) + ' life left.'
+                self.msg = 'Hit a ' + ship_name + ' that has ' \
+                            + str(ship_life) + ' life left.'
             else:
-                self.msg = 'Good Job! You sunk a ' + ship_name + "."
+                self.msg = 'Good Job! You have sunk a ' + ship_name + "."
         self.print_user_game_map()
+
+    # check if any ship is still alive
+    def check_any_ship_alive(self):
+        for ship in self.ships:
+            if ship.get_alive():
+                return True
+        return False
 
 
 # parent Ships class is defined with properties that all ships have common
@@ -132,9 +142,14 @@ class Ships:
     # decrease_life method is for decrease ship life once it was hit.
     def decrease_life(self):
         self.life -= 1
+        if self.life == 0:
+            self.is_alive = False
 
     def get_map_id(self):
         return self.map_id
+
+    def get_alive(self):
+        return self.is_alive
 
 
 # Each different ships has its own class with individual property values
@@ -168,8 +183,9 @@ class Destroyer(Ships):
 class Player:
     def __init__(self) -> None:
         self.name = ""
+        self.shot_count = 0
 
-    # Greet player method asks for the player's name first, check it against
+    # greet player method asks for the player's name first, check it against
     # the regex pattern: name can contain upper and lower cases, space,
     # underscore, and hyphen and it has to be between 2 and 25 characters long.
     # In case the name is invalid a ValueError is raised and a new
@@ -190,11 +206,9 @@ class Player:
 
     # handle shot coordinates ask for user input about the coordinates
     # translate given coordinates to 2D list indexes
+    # runs until ships are alive
     def handle_shot_coordinates(self, map):
-        # until the appropriate loop condition can not be added, for test
-        # it is defined like this
-        i = 0
-        while (i < 5):
+        while map.check_any_ship_alive():
             try:
                 coordinates = input('Enter the coordinates (i.e.: A,5): ')
                 coordinates_list = coordinates.split(',')
@@ -202,11 +216,13 @@ class Player:
                 y = self.y_coordinate_translator(coordinates_list)
                 if y < 0:
                     raise IndexError
+                self.shot_count += 1
                 map.shoot_and_feedback(x, y)
-                i += 1
             except (UnboundLocalError, IndexError, ValueError):
                 print('Please enter valid coordinates (i.e.: A,5).')
                 continue
+        print(f'{self.name}, you used {self.shot_count} shots to sunk all \
+                 ships!')
 
     # translate the the first element of coordinate_ list
     # i.e.: B to list index which is 1 in case of B.
