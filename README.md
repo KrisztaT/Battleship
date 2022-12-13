@@ -49,7 +49,7 @@ Battleship Lite is a solo game, played on a 10 * 10 map (grid), each grid square
 * Destroyer (2)
 
 It is important to note that the ships can not overlap, can not hang off the map and they are hidden from the Player.
-After the map is built and ships are arranged on the map, the Player can start the discovery of the ships by shooting to a target. The application provides feedback (graphically on the map and via textual information below the map) about the result of the shot (i.e.: hit or miss or sinking ship). The game continues until all of the ships were discovered or the Player types exit.
+After the map is built and ships are arranged on the map, the Player can start the discovery of the ships by shooting to a target. The application provides feedback (graphically on the map and via textual information below the map) about the result of the shot (i.e.: hit or miss or already shot). The game continues until all of the ships were discovered or the Player type 'x'.
 
 # Source control repository
 
@@ -61,15 +61,15 @@ After the map is built and ships are arranged on the map, the Player can start t
 
 # Features
 
-## Greeting player
+## 1. Greeting player
 
 When the player starts the game, the player name is asked and checked for validity (the name can contain lower and upper cases, numbers, space, underscore, hyphen and it needs to be between 2 and 25 character long). After a valid user name is given the player is greeted by the application. And the program prints out the map.
 
-## Game Map creation and printing
+## 2. Game Map creation and printing
 
 Map is created for the player to start the game, which first is and empty map, only filled with zeros. There are two printing services included in the game, one for the time of the development (print_game_map()) and one for the player (print_user_game_map()). The dev print method prints the map showing where the ships can be found, so during the development of the game ships placement and shot results can be tracked visually. Once the development stage is finished that print method is not used anymore. Only the second map printing method will be called, that hides the ships place from the player, however it shows all the shot results.
 
-## Ship placement
+## 3. Ship placement
 
 The application automatically places the ships on the map, this process can not be observed by the player because it is hidden. There are two main rules of the ship placement that the application must follow:
 
@@ -81,10 +81,14 @@ To place the ships on the map first coordinates and orientation is randomly gene
 Now let's see how these three features work together:
 
 * the first textual section shows a successful greeting after entering the name.
-* the first table shows the map print for development. 0 means there is nothing on the map, numbers from 1 to 5 represents the different types of ships. Using this method we can make sure if the ship placement was successful graphically. (There are automated tests written to test this feature as well.)
+* the first table shows the map printed out for development. 0 means there is nothing on the map, numbers from 1 to 5 represents the different types of ships. Using this method, we can make sure graphically if the ship placement was successful. (There are automated tests written to test this feature as well.)
 * the second table is for the player, that is what is printed out at the start of the game
 
 ![Map for devs and players printed](./docs/greet_map_printing_ship_placement.png)
+
+## 4. Handling shot coordinates
+
+To hit the ship, the first step is for the player to enter shot coordinates. In the background shot coordinates are checked and in case invalid coordinates are provided, a new coordinate pair is asked from the player. The process goes until a valid coordinate is entered. Coordinates in the game needs to be entered until any of the ship is alive on the map or the player wants to exit.
 
 # Implementation plan
 
@@ -100,13 +104,14 @@ The first day of the development environment and trello board setup was done, an
 
 The game map card defines in the description the user story and additional information.
 
-```
+```txt
 Who: As a Player
 Functionality: I want to start the game and see the game map displayed
 Benefit: so I can play.
 
 To start the game first the game map needs to be build up and printed to the user and input from the player needs to be asked. Also ships needs to be placed on the map, which another card will address.
 ```
+
 The checklist contains all the steps necessary to ask for user name, print a greetings out and build a map which is printed out.
 
 ![Start Game Trello card details](./docs/221209TrelloStartCard.png)
@@ -117,7 +122,7 @@ Trello Board on 11/12/2022, showing that the Start Game card was finished and th
 
 The place ships card defines in the description the user story and additional information.
 
-```
+```txt
 Who: As a Player
 Functionality: I want ships to be placed on the map automatically
 Benefit: so I can shot them.
@@ -136,6 +141,7 @@ Ships needs to be placed on the map before shots can be made. There are 5 types 
 
 To place the ships on the map random coordinates and orientation needs to be generated and overlaps needs to be examined. Ships can not overlap each other. For the player these ship placements stay hidden.
 ```
+
 The checklist contains all the steps necessary to create ships classes, and add ships objects to the map following the above discussed rules.
 
 ![Place ships Card 111222](./docs/221211PlaceShipCard.png)
@@ -150,13 +156,14 @@ Trello Board on 13/12/2022, showing that the Shoot card was placed on the ongoin
 
 The shoot card defines in the description the user story and additional information.
 
-```
+```txt
 Who: As a Player
 Functionality: I want to make a shot
 Benefit: so I can hit the ships.
 
 An input is asked from the Player (i.e.: A,5 (column, row), this input needs to be translated into indexes of the 2D list used for creating the game map. 
 ```
+
 The checklist contains all the steps necessary to ask for coordinates from the player, if coordinates are not valid handle errors and to translate valid coordinates to the language that the 2D list (game map) understands.
 
 ![Shoot Card 131222](./docs/221213ShootCard.png)
