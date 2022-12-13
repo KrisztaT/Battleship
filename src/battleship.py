@@ -18,12 +18,13 @@ class Game_map:
     def create_game_map(self):
         self.game_map = [[0]*self.cols for _ in range(self.rows)]
 
-    # print the game map
+    # print the game map useful for visual test
     def print_game_map(self):
         headers = 'ABCDEFGHIJ'
         print(tabulate(self.game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1)))
 
+    # print game map for user it hides the ships
     def print_user_game_map(self):
         headers = 'ABCDEFGHIJ'
         player_game_map = [['']*self.cols for _ in range(self.rows)]
@@ -155,6 +156,31 @@ class Player:
                 continue
         print(f'Hello {self.name}, let\'s start the game!')
 
+    # handle shot coordinates ask for user input about the coordinates
+    # translate given coordinates to 2D list indexes
+    def handle_shot_coordinates(self, map):
+        coordinates = input('Please enter the coordinates (i.e.: A,5): ')
+        coordinates_list = coordinates.split(',')
+        x = self.x_coordinate_translator(coordinates_list)
+        y = self.y_coordinate_translator(coordinates_list)
+        print(x, y)
+
+    # translate the the first element of coordinate_ list
+    # i.e.: B to list index which is 1 in case of B.
+    def x_coordinate_translator(self, coordinate_list):
+        x_dict = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4,
+                  "F": 5, "G": 6, "H": 7, "I": 8, "J": 9}
+
+        if coordinate_list[0].upper() in x_dict.keys():
+            x = x_dict[coordinate_list[0].upper()]
+        return x
+
+    # translate the second element of the coordinate_ list
+    # i.e.: 3, as list index starts from 0 it is 2.
+    def y_coordinate_translator(self, coordinate_list):
+        y = int(coordinate_list[1]) - 1
+        return y
+
 
 # Game control
 def main():
@@ -167,6 +193,7 @@ def main():
     game_map.add_ships()
     game_map.print_game_map()
     game_map.print_user_game_map()
+    player.handle_shot_coordinates(game_map)
 
 
 # Allow file execution when it is not an imported module.
