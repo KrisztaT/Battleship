@@ -4,6 +4,7 @@ from random import randint
 from random import choice
 import re
 import os
+import sys
 
 
 # First, a Game map class is created, properties rows, cols also a game_map
@@ -40,7 +41,10 @@ class Game_map:
                     case 'X': player_game_map[i][j] = 'X'
                     case '~': player_game_map[i][j] = '~'
         # comment screen clear out to test the app
-        os.system('cls||clear')
+        if (os.name == 'posix'):
+            os.system('clear')
+        else:
+            os.system('cls||clear')
         print(tabulate(player_game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1), stralign='center'))
         print(self.msg)
@@ -228,17 +232,24 @@ class Player:
     def handle_shot_coordinates(self, map):
         while map.check_any_ship_alive():
             try:
-                coordinates = input('Enter the coordinates (i.e.: A,5): ')
-                coordinates_list = coordinates.split(',')
-                x = self.x_coordinate_translator(coordinates_list)
-                y = self.y_coordinate_translator(coordinates_list)
-                if y < 0:
-                    raise IndexError
-                self.shot_count += 1
-                map.shoot_and_feedback(x, y)
+                coordinates = input('Please enter a coordinate (i.e.: A,5) or '
+                                    + 'x to exit: ')
+                if coordinates == 'x' or coordinates == 'X':
+                    sys.exit('You chose to exit the game. Bye!')
+                else:
+                    coordinates_list = coordinates.split(',')
+                    x = self.x_coordinate_translator(coordinates_list)
+                    y = self.y_coordinate_translator(coordinates_list)
+                    if y < 0:
+                        raise IndexError
+                    self.shot_count += 1
+                    # uncomment print if you want to see the coordinates
+                    # print(x, y, self.shot_count)
+                    map.shoot_and_feedback(x, y)
             except (UnboundLocalError, IndexError, ValueError):
-                print('Please enter valid coordinates (i.e.: A,5).')
+                print('Please enter a valid coordinate.')
                 continue
+
         print(f'{self.name}, you used {self.shot_count} shots to sunk all '
               + ' the ships!')
 
