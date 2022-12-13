@@ -3,6 +3,7 @@ from tabulate import tabulate
 from random import randint
 from random import choice
 import re
+import os
 
 
 # First, a Game map class is created, properties rows, cols also a game_map
@@ -20,7 +21,8 @@ class Game_map:
     def create_game_map(self):
         self.game_map = [[0]*self.cols for _ in range(self.rows)]
 
-    # print the game map useful for visual test
+    # print the game map useful for visual test, it shows all the changes
+    # different methods do on the map
     def print_game_map(self):
         headers = 'ABCDEFGHIJ'
         print(tabulate(self.game_map, headers=headers, tablefmt='fancy_grid',
@@ -37,11 +39,13 @@ class Game_map:
                     case 0 | 1 | 2 | 3 | 4 | 5: player_game_map[i][j] = ''
                     case 'X': player_game_map[i][j] = 'X'
                     case '~': player_game_map[i][j] = '~'
+        # comment screen clear out to test the app
+        os.system('cls||clear')
         print(tabulate(player_game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1), stralign='center'))
         print(self.msg)
 
-    # mainly for test purposes, gives back the game map
+    # mainly for tdd purposes, gives back the game map
     def get_game_map(self):
         return self.game_map
 
@@ -221,8 +225,8 @@ class Player:
             except (UnboundLocalError, IndexError, ValueError):
                 print('Please enter valid coordinates (i.e.: A,5).')
                 continue
-        print(f'{self.name}, you used {self.shot_count} shots to sunk all \
-                 ships!')
+        print(f'{self.name}, you used {self.shot_count} shots to sunk all '
+              + ' the ships!')
 
     # translate the the first element of coordinate_ list
     # i.e.: B to list index which is 1 in case of B.

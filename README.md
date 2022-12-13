@@ -88,7 +88,24 @@ Now let's see how these three features work together:
 
 ## 4. Handling shot coordinates
 
-To hit the ship, the first step is for the player to enter shot coordinates. In the background shot coordinates are checked and in case invalid coordinates are provided, a new coordinate pair is asked from the player. The process goes until a valid coordinate is entered. Coordinates in the game needs to be entered until any of the ship is alive on the map or the player wants to exit.
+To hit the ship, the first step is for the player to enter shot coordinates. In the background, shot coordinates are checked and in case invalid coordinates are provided, a new coordinate pair is asked from the player. The process goes until a valid coordinate is entered. Coordinates in the game needs to be entered until any of the ship is alive on the map or the player wants to exit.
+
+## 5. Shoot and feedback
+
+After the player entered the valid coordinates, the shoot and feedback method is called from the handling shot coordinates method. The shoot and feedback method role is to examine the given coordinate on the map:
+
+* if there is a ~ or X on the coordinate on the map, it means there was a shot there before, so the app gives back the message _Already shot there!_
+* if there was no ship on the map (0) at the shot coordinate, then the app puts a _~_ in the map to that coordinate and gives the message _Missed_.
+* if there is a ship on the map (1,2,3,4,5) at the shot coordinate, then the app puts an _X_ in the map to that coordinate and gives the message about _which ship was hit, how much life the ship still have or if the given ship was sunk_.
+
+Let's see how these two features work together with the previous ones.
+
+1. I made couple of shot to **g,6** and **i,7** coordinates, those two were both **misses**.
+2. Then I shot to **a,4** and I found a destroyer ship there, so **X** is presented on the map to give feedback visually about my shot. Information below the map provides feedback textually: **Hit a destroyer that has 1 life left**.
+3. So next I shot to **a,5**, where the destroyer second half was, the map shows that to me with an **X** and the text below informs me, that **good job, you have sunk the destroyer**.
+4. While I was shooting around I found a battleship as well, then I made my last shot to **d,10** and it was a **miss**.
+
+![Shoot ships](./docs/ship_shooting.png)
 
 # Implementation plan
 
