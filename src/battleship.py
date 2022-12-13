@@ -188,13 +188,15 @@ class Player:
         i = 0
         while (i < 5):
             try:
-                coordinates = input('Please enter the coordinates (i.e.: A,5): ')
+                coordinates = input('Enter the coordinates (i.e.: A,5): ')
                 coordinates_list = coordinates.split(',')
                 x = self.x_coordinate_translator(coordinates_list)
                 y = self.y_coordinate_translator(coordinates_list)
+                if y < 0:
+                    raise IndexError
                 map.shoot_and_feedback(x, y)
                 i += 1
-            except UnboundLocalError:
+            except (UnboundLocalError, IndexError, ValueError):
                 print('Please enter valid coordinates (i.e.: A,5).')
                 continue
 
