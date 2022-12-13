@@ -13,6 +13,8 @@ class Game_map:
         self.rows = rows
         self.cols = cols
         self.game_map = []
+        self.ships = []
+        self.msg = ''
 
     # create game map, filled with zeros
     def create_game_map(self):
@@ -37,6 +39,7 @@ class Game_map:
                     case '~': player_game_map[i][j] = '~'
         print(tabulate(player_game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1), stralign='center'))
+        print(self.msg)
 
     # mainly for test purposes, gives back the game map
     def get_game_map(self):
@@ -78,6 +81,25 @@ class Game_map:
                 for j in range(len):
                     id = ship.get_map_id()
                     self.game_map[self.rand_y + j][self.rand_x] = id
+
+    # shoot and feedback method examine the coordinate coming from the 
+    # handle_shot_coordinates method in the Player class
+    # if there is a ~ or X it means there was a shot there before, so the app
+    # gives back the message Already shot there!
+    # if there was no ship on the map (0) at the shot coordinate before
+    # then puts a ~ in the map to that coordinate and gives the message Missed
+    # if there is a ship on the map (1,2,3,4,5) at the shot coordinate
+    # then puts an X in the map to that coordinate and gives the message Hit
+    def shoot_and_feedback(self, x, y):
+        if (self.game_map[y][x] == '~' or self.game_map[y][x] == 'X'):
+            self.msg = 'Already shot there!'
+        elif (int(self.game_map[y][x]) == 0):
+            self.game_map[y][x] = '~'
+            self.msg = 'Missed'
+        elif (int(self.game_map[y][x]) > 0):
+            self.game_map[y][x] = 'X'
+            self.msg = 'Hit'
+        self.print_user_game_map()
 
 
 # parent Ships class is defined with properties that all ships have common
@@ -170,7 +192,7 @@ class Player:
                 coordinates_list = coordinates.split(',')
                 x = self.x_coordinate_translator(coordinates_list)
                 y = self.y_coordinate_translator(coordinates_list)
-                print(x, y)
+                map.shoot_and_feedback(x, y)
                 i += 1
             except UnboundLocalError:
                 print('Please enter valid coordinates (i.e.: A,5).')
@@ -203,7 +225,6 @@ def main():
     game_map.create_game_map()
     game_map.add_ships()
     game_map.print_game_map()
-    game_map.print_user_game_map()
     player.handle_shot_coordinates(game_map)
 
 
