@@ -48,6 +48,7 @@ class Game_map:
             os.system('clear')
         else:
             os.system('cls||clear')
+        cprint(figlet_format('Battleship Lite'), 'blue', attrs=['bold'])
         print(tabulate(player_game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1), stralign='center'))
         print(self.msg)
@@ -230,7 +231,7 @@ class Player:
                 cprint('The name is not valid!', 'red')
                 continue
         cprint(f'Hello {self.name}, let\'s start the game!', 'green')
-        time.sleep(3)
+        time.sleep(1)
 
     # handle shot coordinates ask for user input about the coordinates
     # translate given coordinates to 2D list indexes
@@ -240,8 +241,8 @@ class Player:
     def handle_shot_coordinates(self, map):
         while map.check_any_ship_alive():
             try:
-                coordinates = input('Please enter a coordinate (i.e.: A,5) or '
-                                    + 'x to exit: ')
+                coordinates = input('Please enter the coordinates (i.e.: A,5) '
+                                    + 'or an x to exit: ')
                 if coordinates == 'x' or coordinates == 'X':
                     sys.exit('You chose to exit the game. Bye!')
                 else:
@@ -290,6 +291,7 @@ def main():
     game_map.add_ships()
 
     # to visually test if the ships were placed, run the commented code below
+    # do not forget to comment out the screen clear in print_user_game_map()
     # game_map.print_game_map()
 
     game_map.print_user_game_map()

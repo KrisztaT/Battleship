@@ -49,7 +49,7 @@ Battleship Lite is a solo game, played on a 10 * 10 map (grid), each grid square
 * Destroyer (2)
 
 It is important to note that the ships can not overlap, can not hang off the map and they are hidden from the Player.
-After the map is built and ships are arranged on the map, the Player can start the discovery of the ships by shooting to a target. The application provides feedback (graphically on the map and via textual information below the map) about the result of the shot (i.e.: hit or miss or already shot). The game continues until all of the ships were discovered or the Player type 'x'.
+After the map is built and ships are arranged on the map, the Player can start the discovery of the ships by shooting to a target. The application provides feedback (graphically on the map and via textual information below the map) about the result of the shot (i.e.: which ship was hit, how much life the ship still have or if the given ship was sunk or missed or already shot). The game continues until all of the ships were discovered or the Player type 'x'.
 
 # Source control repository
 
@@ -63,7 +63,7 @@ After the map is built and ships are arranged on the map, the Player can start t
 
 ## 1. Greeting player
 
-When the player starts the game, the player name is asked and checked for validity (the name can contain lower and upper cases, numbers, space, underscore, hyphen and it needs to be between 2 and 25 character long). After a valid user name is given the player is greeted by the application. And the program prints out the map.
+When the player starts the game, an ascii art is printed, then the player name is asked and checked for validity (the name can contain lower and upper cases, numbers, space, underscore, hyphen and it needs to be between 2 and 25 character long). After a valid user name is given the player is greeted by the application. And the program prints out the map.
 
 ## 2. Game Map creation and printing
 
@@ -106,6 +106,14 @@ Let's see how these two features work together with the previous ones.
 4. While I was shooting around I found a battleship as well, then I made my last shot to **d,10** and it was a **miss**.
 
 ![Shoot ships](./docs/ship_shooting.png)
+
+## 6. End game
+
+End game is implemented in different methods (might not qualify as a separate feature), however it is a user story from the perspective of the player, hence I included it here. The purpose of the end game feature is to manage when the player wants to exit from the game before the game ends or the game must end when all ships were sunk. Depending on the exit condition (simple exit or end of game), a separate messages are printed out to the player.
+
+|Exit game  | End of the game, ships were shot out  |
+|------------------ | --------------------- |
+| ![Exit message](./docs/game_exit.png) | ![win message](./docs/end_game.png) |
 
 # Implementation plan
 
@@ -167,6 +175,10 @@ Trello Board on 12/12/2022, showing that the Place ships card was done.
 
 ![Trello Board 121222](./docs/221212TrelloBoard.png)
 
+I added an optional card to my trello board, it contains optional ideas that are not mandatory for the application to work, but they would be nice to haves.
+
+![Optional Card](./docs/221212OptinalsCard.png)
+
 Trello Board on 13/12/2022, showing that the Shoot card was placed on the ongoing column card was done.
 
 ![Trello Board 131222](./docs/221213TrelloBoard.png)
@@ -184,5 +196,27 @@ An input is asked from the Player (i.e.: A,5 (column, row), this input needs to 
 The checklist contains all the steps necessary to ask for coordinates from the player, if coordinates are not valid handle errors and to translate valid coordinates to the language that the 2D list (game map) understands.
 
 ![Shoot Card 131222](./docs/221213ShootCard.png)
+
+The end game card defines in the description the user story and additional information.
+
+```txt
+who: As a Player
+Functionality: I want to end the game any time or want the game end when I sank all of the ship.
+Benefit: so I can quit.
+
+Naturally there are two ways to end the game, one is when the Player quit during the game, the other is when the Player has hit all the ships. 
+```
+
+The checklist contains all the steps necessary to check the user input if that an x, write message and exit the game, in case there is no ships alive display the congratulation message and exit the game.
+
+![End game Card 1412222](./docs/221214EndGameCard.png)
+
+Most of the nice to have ideas were implemented in the game, such as ASCII art, some colors, meaningful messages at shots and statistics at the end of the game.
+
+![Optional Card](./docs/221214OptionalCard.png)
+
+Trello Board on 14/12/2022, showing that the features and optionals(most of them) were done. Bash script writing and documentation are ongoing tasks.
+
+![Trello Board 141222](./docs/221214%20TrelloBoard.png)
 
 # Help documentation
