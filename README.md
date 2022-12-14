@@ -244,3 +244,4 @@ Trello Board on 14/12/2022, showing that the features and optionals(most of them
 ## Hardware and software requirements
 
 To run the program the minimum hardware and software requirements are the same as for running python on your computer.
+Please find more information on this page: https://pythondev.readthedocs.io/platforms.html
