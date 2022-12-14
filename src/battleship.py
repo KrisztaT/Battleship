@@ -4,7 +4,7 @@ from random import randint
 from random import choice
 from termcolor import cprint
 from pyfiglet import figlet_format
-import re
+import regex
 import os
 import sys
 import time
@@ -39,10 +39,12 @@ class Game_map:
         player_game_map = [['']*self.cols for _ in range(self.rows)]
         for i in range(self.rows):
             for j in range(self.cols):
-                match (self.game_map[i][j]):
-                    case 0 | 1 | 2 | 3 | 4 | 5: player_game_map[i][j] = ''
-                    case 'X': player_game_map[i][j] = 'X'
-                    case '~': player_game_map[i][j] = '~'
+                if (self.game_map[i][j]) == 'X':
+                    player_game_map[i][j] = 'X'
+                elif (self.game_map[i][j]) == '~':
+                    player_game_map[i][j] = '~'
+                else:
+                    player_game_map[i][j] = ''
         # comment screen clear out to test the app
         if (os.name == 'posix'):
             os.system('clear')
@@ -223,7 +225,7 @@ class Player:
         while True:
             try:
                 self.name = input("Please enter your name: ")
-                if (bool(re.fullmatch('^[a-zA-Z0-9 _-]{2,25}+$', self.name))):
+                if (bool(regex.fullmatch(r'^[a-zA-Z0-9 _-]{2,25}+$', self.name))):
                     break
                 else:
                     raise ValueError
