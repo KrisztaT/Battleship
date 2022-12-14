@@ -2,9 +2,12 @@
 from tabulate import tabulate
 from random import randint
 from random import choice
+from termcolor import cprint
+from pyfiglet import figlet_format
 import re
 import os
 import sys
+import time
 
 
 # First, a Game map class is created, properties rows, cols also a game_map
@@ -212,8 +215,10 @@ class Player:
     # underscore, and hyphen and it has to be between 2 and 25 characters long.
     # In case the name is invalid a ValueError is raised and a new
     # name needs to be typed in. After a valid name is given, a greeting, that
-    # includes the user name, is printed.
+    # includes the user name, is printed. To test error handling provide name
+    # such as *Name , This will be a very long user name for test etc.
     def greet_player(self):
+        cprint(figlet_format('Battleship Lite'), 'blue', attrs=['bold'])
         while True:
             try:
                 self.name = input("Please enter your name: ")
@@ -222,13 +227,16 @@ class Player:
                 else:
                     raise ValueError
             except ValueError:
-                print('The name is not valid!')
+                cprint('The name is not valid!', 'red')
                 continue
-        print(f'Hello {self.name}, let\'s start the game!')
+        cprint(f'Hello {self.name}, let\'s start the game!', 'green')
+        time.sleep(3)
 
     # handle shot coordinates ask for user input about the coordinates
     # translate given coordinates to 2D list indexes
     # runs until ships are alive
+    # to test the error handling try to use coordinates such as (a,a , a,12,
+    # 1,2, dhjsgfas etc. )
     def handle_shot_coordinates(self, map):
         while map.check_any_ship_alive():
             try:
@@ -247,11 +255,12 @@ class Player:
                     # print(x, y, self.shot_count)
                     map.shoot_and_feedback(x, y)
             except (UnboundLocalError, IndexError, ValueError):
-                print('Please enter a valid coordinate.')
+                cprint('Please enter a valid coordinate.', 'red')
                 continue
 
-        print(f'{self.name}, you used {self.shot_count} shots to sunk all '
+        print(f'{self.name}, you used {self.shot_count} shots to sunk all'
               + ' the ships!')
+        cprint(figlet_format('Congratulations!'), 'green', attrs=['bold'])
 
     # translate the the first element of coordinate_ list
     # i.e.: B to list index which is 1 in case of B.
@@ -279,7 +288,11 @@ def main():
     game_map = Game_map()
     game_map.create_game_map()
     game_map.add_ships()
-    game_map.print_game_map()
+
+    # to visually test if the ships were placed, run the commented code below
+    # game_map.print_game_map()
+
+    game_map.print_user_game_map()
     player.handle_shot_coordinates(game_map)
 
 
