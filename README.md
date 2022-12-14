@@ -220,3 +220,27 @@ Trello Board on 14/12/2022, showing that the features and optionals(most of them
 ![Trello Board 141222](./docs/221214%20TrelloBoard.png)
 
 # Help documentation
+
+## How to run the python code
+
+* Open your terminal
+* Move the zip file in your chosen folder (to create a folder type _mkdir battleship_ in your terminal then _mv [type current location] to /home/battleship_)
+* Unzip files (type in your terminal _unzip KrisztinaTesenyi_T1A3.zip_)
+* Go to the src directory (type in your terminal _cd src_)
+* Type ./run.sh command in your terminal
+* The file checks if you have python, pip and virtualenv installed on your computer. These are needed to run the code. If you have no python installed, then the message will tell you what  to do, then run the run.sh file again. In case the other 2 is not installed, those will be automatically installed for you.
+* In the next step, a virtual environment is created in the folder, where you ran the ./run.sh command.
+  * Packages also can be found in the requirements.txt file
+    * pyfiglet==0.8.post1
+    * pytest==7.2.0 (only to run automated tests)
+    * regex==2022.10.31
+    * tabulate==0.9.0
+    * termcolor==2.1.1
+* Additional python packages that needed to run the code will be installed to your virtual environment.
+* Then at last the Battleship game will be run. Enjoy!
+
+**Note**: This application was created with Python 3.11.0, however I made changes to the code so it could run on lower versions as well. Although, if you have issues, please run it on 3.11.
+
+## Hardware and software requirements
+
+To run the program the minimum hardware and software requirements are the same as for running python on your computer.
