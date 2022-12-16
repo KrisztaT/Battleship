@@ -237,18 +237,24 @@ The day before the due date, I still need to record the presentation and then up
 And the assessment is officially submitted.
 
 
-
 # Help documentation
 
-## How to run the python code
+## Hardware and software requirements/ Prerequisits to install python
+
+* Debian on computer or using WSL terminal with a minimum of 2GB RAM and 5GB of disk space
+* Sudo access on the system to install Python on Linux.
+
+To run the program the minimum hardware and software requirements are the same as for running python on your computer.
+
+## How to run the python code the first time from zip file
 
 * Open your terminal
 * Unzip files to a subdirectory (type in your terminal _unzip KrisztinaTesenyi_T1A3.zip -d battleship_)
-* Go to the battleship/src directory (type in your terminal _cd battleship/src_)
-* To make the script executable run the following command in your terminal (_chmod +x run.sh_)
-* Type _./run.sh_ command in your terminal
-* The file checks if you have python3, pip and virtualenv installed on your computer. These are needed to run the code. If you have no python installed, then the message will tell you what  to do. Once python3 is installed run the run.sh file again. In case the other 2 is not available, those will be automatically installed for you.
-* In the next step, a virtual environment is created in the folder, where you ran the ./run.sh command.
+* Go to the battleship/src directory (type in your terminal _cd battleship/KrisztinaTesenyi_T1A3/src_)
+* To make the script executable run the following command in your terminal (_chmod +x setup.sh_)
+* Type _./setup.sh_ command in your terminal
+* The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have any of that installed, the script will automatically install those for you. It is important to type Y and press enter when the terminal asks you to do the install.
+* In the next step, a virtual environment is created in the folder, where you ran the ./setup.sh command.
 * Additional python packages that needed to run the code will be installed to your virtual environment.
   * Packages also can be found in the requirements.txt file
     * pyfiglet==0.8.post1
@@ -256,11 +262,33 @@ And the assessment is officially submitted.
     * regex==2022.10.31
     * tabulate==0.9.0
     * termcolor==2.1.1
-* Then at last the Battleship game will run. Enjoy!
+* Then at last the Battleship game will run and asks your name to start. Enjoy!
+
+## How to run the python code the first time cloning it from GitHub
+
+* Open your terminal
+* Create a directory using _mkdir battleship_.
+* Type _cd battleship_ to go to the created directory where you will clone the battleship game from GitHub.
+* Type _git clone https://github.com/KrisztaT/Battleship.git_, then press enter and wait until cloning is finished.
+* Then enter the src directory (_cd src_)
+ To make the script executable run the following command in your terminal (_chmod +x setup.sh_)
+* Type _./setup.sh_ command in your terminal
+* The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have any of that installed, the script will automatically install those for you. It is important to type Y and press enter when the terminal asks you to do the install.
+* In the next step, a virtual environment is created in the folder, where you ran the ./setup.sh command.
+* Additional python packages that needed to run the code will be installed to your virtual environment.
+  * Packages also can be found in the requirements.txt file
+    * pyfiglet==0.8.post1
+    * pytest==7.2.0 (only to run automated tests)
+    * regex==2022.10.31
+    * tabulate==0.9.0
+    * termcolor==2.1.1
+* Then at last the Battleship game will run and asks your name to start. Enjoy!
+
+## After the first run
+
+* After the _setup.sh_ was run, you can use the _run.sh_ script to execute the battleship game in any of the folder on your computer.
+* To do that type _chmod +x run.sh_ in your terminal
+* Then type _./run.sh_ command in your terminal
+* Now, that python3, pip3 and virtualenv are installed on your computer, the script install the packages used for running the code if you put it in a new directory with the game code, otherwise it just starts the game.
 
 **Note**: This application was created with Python 3.11.0, however I made changes to the code so it should run on lower versions as well. Although, if you have issues, please run it on 3.11.
-
-## Hardware and software requirements
-
-To run the program the minimum hardware and software requirements are the same as for running python on your computer.
-Please find more information on this page: https://pythondev.readthedocs.io/platforms.html
