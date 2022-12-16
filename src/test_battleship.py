@@ -129,14 +129,14 @@ def test_submarine_length():
 # test x coordinate translator
 def test_x_translator():
     player = Player()
-    test_coordinate = ['D', 4]
+    test_coordinate = ['F', 4]
     x = player.x_coordinate_translator(test_coordinate)
-    assert x == 3
+    assert x == 5
 
 
 # test y coordinate translator
 def test_y_translator():
     player = Player()
-    test_coordinate = ['D', 4]
+    test_coordinate = ['F', 4]
     y = player.y_coordinate_translator(test_coordinate)
     assert y == 3

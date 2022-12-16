@@ -1,13 +1,14 @@
 # BattleShip Lite
+# import packages
+import sys
+import time
+import os
+import regex
 from tabulate import tabulate
 from random import randint
 from random import choice
 from termcolor import cprint
 from pyfiglet import figlet_format
-import regex
-import os
-import sys
-import time
 
 
 # First, a Game map class is created, properties rows, cols also a game_map
@@ -21,22 +22,25 @@ class Game_map:
         self.ships = []
         self.msg = ''
 
-    # create game map, filled with zeros
+    # create initial game map, filled with zeros
     def create_game_map(self):
         self.game_map = [[0]*self.cols for _ in range(self.rows)]
 
-    # print the game map useful for visual test, it shows all the changes
-    # different methods do on the map
+    # print the game map, it is useful for visual test, it shows all the
+    # ships and changes that different methods do on the map
     def print_game_map(self):
         headers = 'ABCDEFGHIJ'
+
         print(tabulate(self.game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1)))
 
-    # print game map for user it hides the ships, in case of miss ~
-    # will be put in the map, in case of hit X.
+    # print game map for the player
     def print_user_game_map(self):
         headers = 'ABCDEFGHIJ'
         player_game_map = [['']*self.cols for _ in range(self.rows)]
+
+        # for loop hides the ships, in case of missed shot '~'
+        # will be put in the map, in case of hit, 'X'.
         for i in range(self.rows):
             for j in range(self.cols):
                 if (self.game_map[i][j]) == 'X':
@@ -45,14 +49,23 @@ class Game_map:
                     player_game_map[i][j] = '~'
                 else:
                     player_game_map[i][j] = ''
+
         # comment screen clear out to test the app
+        # it examines the os and based on the result runs
+        # the clear or cls command
         if (os.name == 'posix'):
             os.system('clear')
         else:
-            os.system('cls||clear')
+            os.system('cls')
+
+        # Ascii art print
         cprint(figlet_format('Battleship Lite'), 'blue', attrs=['bold'])
+
+        # player game map print
         print(tabulate(player_game_map, headers=headers, tablefmt='fancy_grid',
               showindex=range(1, self.rows + 1), stralign='center'))
+
+        # feedback message print created in shoot_and_feedback method
         print(self.msg)
 
     # mainly for tdd purposes, gives back the game map
@@ -74,9 +87,11 @@ class Game_map:
         for ship in self.ships:
             len = ship.get_length()
             is_grid_free = False
+
             while not is_grid_free:
                 is_grid_free = True
                 generate_random_location(self)
+
                 if self.orientation == 'H':
                     for j in range(len):
                         # try-except block is used, because random generation
@@ -99,6 +114,7 @@ class Game_map:
                         except IndexError:
                             is_grid_free = False
 
+            # ships are put on the map
             if self.orientation == 'H':
                 for j in range(len):
                     id = ship.get_map_id()
@@ -108,22 +124,23 @@ class Game_map:
                     id = ship.get_map_id()
                     self.game_map[self.rnd_y + j][self.rnd_x] = id
 
-    # shoot and feedback method examine the coordinate coming from the
-    # handle_shot_coordinates method in the Player class
-    # if there is a ~ or X it means there was a shot there before, so the app
-    # gives back the message Already shot there!
-    # if there was no ship on the map (0) at the shot coordinate before
-    # then puts a ~ in the map to that coordinate and gives the message Missed
-    # if there is a ship on the map (1,2,3,4,5) at the shot coordinate
-    # then puts an X in the map to that coordinate and gives the message
-    # which ship was hit and how much life it has, or if a ship were sunk,
-    # it is also printed
+    # shoot and feedback method examine the coordinates coming from the
+    # handle_shot_coordinates method from the Player class
     def shoot_and_feedback(self, x, y):
+        # if there is a ~ or X it means there was a shot there before, so the
+        # app gives back the message Already shot there!
         if (self.game_map[y][x] == '~' or self.game_map[y][x] == 'X'):
             self.msg = 'Already shot there!'
+        # if there was no ship on the map (0) at the shot coordinate before
+        # then puts a ~ in the map to that coordinate and gives the message
+        # Missed
         elif (int(self.game_map[y][x]) == 0):
             self.game_map[y][x] = '~'
             self.msg = 'Missed'
+        # if there is a ship on the map (1,2,3,4,5) at the shot coordinate
+        # then puts an X in the map to that coordinate and gives the message
+        # which ship was hit and how much life it has, or if a ship were sunk,
+        # it is also printed
         elif (int(self.game_map[y][x]) > 0):
             for ship in self.ships:
                 if (ship.get_map_id() == self.game_map[y][x]):
@@ -136,7 +153,6 @@ class Game_map:
                             + str(ship_life) + ' life left.'
             else:
                 self.msg = 'Good Job! You have sunk a ' + ship_name + "."
-        self.print_user_game_map()
 
     # check if any ship is still alive
     def check_any_ship_alive(self):
@@ -180,8 +196,8 @@ class Ships:
         return self.is_alive
 
 
-# Each different ships has its own class with individual property values
-# and all inherits property and methods from Ships
+# Each unique ship has its own class with individual property values
+# and all inherits properties and methods from the Ships parent class
 class Carrier(Ships):
     def __init__(self, map_id=5) -> None:
         super().__init__('carrier', 5, map_id)
@@ -207,37 +223,43 @@ class Destroyer(Ships):
         super().__init__('destroyer', 2, map_id)
 
 
-# Player class is created with the Player's name as a property.
+# Player class is created with the Player's name and shot_count
+#  as a properties.
 class Player:
     def __init__(self) -> None:
         self.name = ""
         self.shot_count = 0
 
     # greet player method asks for the player's name first, check it against
-    # the regex pattern: name can contain upper and lower cases, space,
-    # underscore, and hyphen and it has to be between 2 and 25 characters long.
+    # the regex pattern: name can contain upper and lower cases, spaces,
+    # underscores, and hyphens and it has to be between 2 and 25 characters.
     # In case the name is invalid a ValueError is raised and a new
-    # name needs to be typed in. After a valid name is given, a greeting, that
-    # includes the user name, is printed. To test error handling provide name
-    # such as *Name , This will be a very long user name for test etc.
+    # name needs to be typed in.
+    # To test error handling provide name such as
+    # *Name , This will be a very long user name for test etc.
     def greet_player(self):
         cprint(figlet_format('Battleship Lite'), 'blue', attrs=['bold'])
         while True:
             try:
-                self.name = input("Please enter your name: ")
-                if (bool(regex.fullmatch(r'^[a-zA-Z0-9 _-]{2,25}+$', self.name))):
+                self.name = input("Please enter your username: ")
+                my_pattern = r'^[a-zA-Z0-9 _-]{2,25}+$'
+                if (bool(regex.fullmatch(my_pattern, self.name))):
                     break
                 else:
                     raise ValueError
             except ValueError:
                 cprint('The name is not valid!', 'red')
                 continue
+        # After a valid name is given, a greeting, that
+        # includes the user name, is printed.
         cprint(f'Hello {self.name}, let\'s start the game!', 'green')
+        # sleep is used, so before the screen clear happens, the player can
+        # see the greeting message
         time.sleep(1)
 
-    # handle shot coordinates ask for user input about the coordinates
+    # handle shot coordinates ask for user input for the coordinates
     # translate given coordinates to 2D list indexes
-    # runs until ships are alive
+    # method runs until any of the ship is alive
     # to test the error handling try to use coordinates such as (a,a , a,12,
     # 1,2, dhjsgfas etc. )
     def handle_shot_coordinates(self, map):
@@ -257,12 +279,16 @@ class Player:
                     # uncomment print if you want to see the coordinates
                     # print(x, y, self.shot_count)
                     map.shoot_and_feedback(x, y)
+                    map.print_user_game_map()
             except (UnboundLocalError, IndexError, ValueError):
-                cprint('Please enter a valid coordinate.', 'red')
+                cprint('Please enter valid coordinates.', 'red')
                 continue
 
-        print(f'{self.name}, you used {self.shot_count} shots to sunk all'
+        # At the end of the game, print message to user
+        print(f'{self.name}, you used {self.shot_count} shots to sink all'
               + ' the ships!')
+
+        # print ASCII art to congratulate to the user
         cprint(figlet_format('Congratulations!'), 'green', attrs=['bold'])
 
     # translate the the first element of coordinate_ list
@@ -282,7 +308,6 @@ class Player:
         return y
 
 
-# Game control
 def main():
     # Create player object and call its methods to greet the player
     player = Player()

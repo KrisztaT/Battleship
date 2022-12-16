@@ -40,7 +40,7 @@ You must include:
 - how to use any command line arguments made for the application -->
 # Battleship Lite
 
-Battleship Lite is a solo game, played on a 10 * 10 map (grid), each grid square is identified with a letter and a number. The application automatically arranges the ships either vertically or horizontally on the map. Five ships are placed on the game board, their type determines how many grid squares they take up:
+Battleship Lite is a solo game, played on a 10 * 10 map (grid), each grid square is identified with a letter and a number. The application automatically and randomly arranges the ships either vertically or horizontally on the map. Five ships are placed on the game board, their type determines how many grid squares they take up:
 
 * Carrier (5)
 * Battleship (4)
@@ -48,47 +48,49 @@ Battleship Lite is a solo game, played on a 10 * 10 map (grid), each grid square
 * Submarine (3)
 * Destroyer (2)
 
-It is important to note that the ships can not overlap, can not hang off the map and they are hidden from the Player.
-After the map is built and ships are arranged on the map, the Player can start the discovery of the ships by shooting to a target. The application provides feedback (graphically on the map and via textual information below the map) about the result of the shot (i.e.: which ship was hit, how much life the ship still have or if the given ship was sunk or missed or already shot). The game continues until all of the ships were discovered or the Player type 'x'.
+It is important to note that the ships can not overlap, can not hang off the map, and are hidden from the Player.
+After the map is built and the ships are arranged on the map, the Player can start the discovery of the ships by shooting at a target. The application provides feedback (graphically on the map and via textual information below the map) about the result of the shot (i.e.: which ship was hit, how much life the ship still has or if the given ship was sunk or missed, or already shot). The game continues until all of the ships were discovered or the Player type 'x'.
 
 # Source control repository
 
 [Battleship Lite Github Repository](https://github.com/KrisztaT/Battleship)
+[Presentation video](https://youtube.com)
 
 # Style Convention
 
-**PEP 8** was utilised as a style convention during the development of the terminal application. I enabled linting in VSC and installed the pycodestyle (pep8) extension to aid me.
+**PEP 8** was utilised as a code style during the development of the terminal application. I enabled linting in VSC and installed the pycodestyle (pep8) extension to aid me.
+Standard python code convention was also followed to achieve a code that has no syntactical error and runs smoothly.
 
 # Features
 
 ## 1. Greeting player
 
-When the player starts the game, an ascii art is printed, then the player name is asked and checked for validity (the name can contain lower and upper cases, numbers, space, underscore, hyphen and it needs to be between 2 and 25 character long). After a valid user name is given the player is greeted by the application. And the program prints out the map.
+When the player starts the game, an ASCII art is printed, then the player name is asked and checked for validity (the name can contain lower and upper cases, numbers, spaces, underscores, and hyphens and it needs to be between 2 and 25 characters long). After a valid user name is given the player is greeted by the application. And the program prints out the map.
 
 ## 2. Game Map creation and printing
 
-Map is created for the player to start the game, which first is and empty map, only filled with zeros. There are two printing services included in the game, one for the time of the development (print_game_map()) and one for the player (print_user_game_map()). The dev print method prints the map showing where the ships can be found, so during the development of the game ships placement and shot results can be tracked visually. Once the development stage is finished that print method is not used anymore. Only the second map printing method will be called, that hides the ships place from the player, however it shows all the shot results.
+The map is created for the player to start the game, which first is an empty map, only filled with zeros. There are two printing services included in the game, one for the time of the development (print_game_map()) and one for the player (print_user_game_map()). The dev print method prints the map showing where the ships can be found, so during the development of the game ships’ placement and shot results can be tracked visually. Once the development stage is finished the print method is not used anymore. Only the second map printing method will be called, which hides the ships’ place from the player, however, it shows all the shot results and updates the screen after every shot.
 
 ## 3. Ship placement
 
-The application automatically places the ships on the map, this process can not be observed by the player because it is hidden. There are two main rules of the ship placement that the application must follow:
+The application automatically places the ships on the map, this process can not be observed by the player because it is hidden. There are two main rules of ship placement that the application must follow:
 
 * ships can not overlap
 * ships can not hang off the map
 
-To place the ships on the map first coordinates and orientation is randomly generated. To follow the rules, these coordinates are examined based on the orientation to see if other ship is placed on the coordinate and the whole ship length or not and if the ship would hang off the map starting from the given coordinate. If other ship is placed or the ship would hang off using the generated coordinate, a new coordinate generation will take place and the examination starts from scratch. In case no other ship is on the ship length and wouldn't go out of the boundaries of the map, ship is placed on the map.
+To place the ships on the map first coordinates and orientation are randomly generated. To follow the rules, these coordinates are examined based on the orientation to see if another ship is placed on the coordinate and the whole ship length or not and if the ship would hang off the map starting from the given coordinate. If another ship is placed or the ship would hang off using the generated coordinate, a new coordinate generation will take place and the examination starts from scratch. In case no other ship is on the ship length and wouldn't go out of the boundaries of the map, the ship is placed on the map.
 
 Now let's see how these three features work together:
 
 * the first textual section shows a successful greeting after entering the name.
-* the first table shows the map printed out for development. 0 means there is nothing on the map, numbers from 1 to 5 represents the different types of ships. Using this method, we can make sure graphically if the ship placement was successful. (There are automated tests written to test this feature as well.)
+* the first table shows the map printed out for development. 0 means there is nothing on the map, numbers from 1 to 5 represent the different types of ships. Using this method, we can make sure graphically that the ship placement was successful. (There are automated tests written to test this feature as well.)
 * the second table is for the player, that is what is printed out at the start of the game
 
-![Map for devs and players printed](./docs/greet_map_printing_ship_placement.png)
+![Map for dev and players printed](./docs/greet_map_printing_ship_placement.png)
 
 ## 4. Handling shot coordinates
 
-To hit the ship, the first step is for the player to enter shot coordinates. In the background, shot coordinates are checked and in case invalid coordinates are provided, a new coordinate pair is asked from the player. The process goes until a valid coordinate is entered. Coordinates in the game needs to be entered until any of the ship is alive on the map or the player wants to exit.
+To hit the ship, the first step is for the player to enter shot coordinates. In the background, shot coordinates are checked and in case invalid coordinates are provided, a new coordinate pair is asked from the player. The process goes on until a valid coordinate is entered. Coordinates in the game need to be entered until any of the ships is alive on the map or the player wants to exit.
 
 ## 5. Shoot and feedback
 
@@ -101,15 +103,15 @@ After the player entered the valid coordinates, the shoot and feedback method is
 Let's see how these two features work together with the previous ones.
 
 1. I made couple of shot to **g,6** and **i,7** coordinates, those two were both **misses**.
-2. Then I shot to **a,4** and I found a destroyer ship there, so **X** is presented on the map to give feedback visually about my shot. Information below the map provides feedback textually: **Hit a destroyer that has 1 life left**.
-3. So next I shot to **a,5**, where the destroyer second half was, the map shows that to me with an **X** and the text below informs me, that **good job, you have sunk the destroyer**.
+2. Then I shot to **a,4** and I found a destroyer ship there, so **X** is presented on the map to give feedback visually about my shot. The information below the map provides feedback textually: **Hit a destroyer that has 1 life left**.
+3. So next I shot to **a,5**, where the destroyer’s second half was, the map shows that to me with an **X** and the text below informs me, that **Good job, you have sunk the destroyer**.
 4. While I was shooting around I found a battleship as well, then I made my last shot to **d,10** and it was a **miss**.
 
 ![Shoot ships](./docs/ship_shooting.png)
 
 ## 6. End game
 
-End game is implemented in different methods (might not qualify as a separate feature), however it is a user story from the perspective of the player, hence I included it here. The purpose of the end game feature is to manage when the player wants to exit from the game before the game ends or the game must end when all ships were sunk. Depending on the exit condition (simple exit or end of game), a separate messages are printed out to the player.
+The end game is implemented in different methods (might not qualify as a separate feature), however it is a user story from the perspective of the player, hence I included it here. The purpose of the end game feature is to manage when the player wants to exit from the game before the game ends or the game must end when all ships were sunk. Depending on the exit condition (simple exit or end of the game), separate messages are printed out to the player.
 
 |Exit game  | End of the game, ships were shot out  |
 |------------------ | --------------------- |
@@ -123,7 +125,7 @@ Trello Board initial setup of the cards, as the development progresses the cards
 
 ![Trello Board 081222](./docs/221208Trello.png)
 
-The first day of the development environment and trello board setup was done, and readme file, slide deck writing and style sheet use all in progress tasks for the project lifecycle. I started to develop the game map, hence it is in the progress column.
+The first day of the development environment and Trello board setup was done, and the readme file, slide deck writing, and style sheet use all in-progress tasks for the project lifecycle. I started to develop the game map, hence it is in the progress column.
 
 ![Trello Board](./docs/221209TrelloBoard.png)
 
@@ -134,7 +136,7 @@ Who: As a Player
 Functionality: I want to start the game and see the game map displayed
 Benefit: so I can play.
 
-To start the game first the game map needs to be build up and printed to the user and input from the player needs to be asked. Also ships needs to be placed on the map, which another card will address.
+To start the game first the game map needs to be built up and printed for the user and input from the player needs to be asked. Also, ships need to be placed on the map, which another card will address.
 ```
 
 The checklist contains all the steps necessary to ask for user name, print a greetings out and build a map which is printed out.
@@ -150,9 +152,9 @@ The place ships card defines in the description the user story and additional in
 ```txt
 Who: As a Player
 Functionality: I want ships to be placed on the map automatically
-Benefit: so I can shot them.
+Benefit: so I can shoot them.
 
-Ships needs to be placed on the map before shots can be made. There are 5 types of ships in the game:
+Ships need to be placed on the map before shots can be made. There are 5 types of ships in the game:
 
 * Carrier(5),
 
@@ -164,7 +166,8 @@ Ships needs to be placed on the map before shots can be made. There are 5 types 
 
 * Destroyer(2)
 
-To place the ships on the map random coordinates and orientation needs to be generated and overlaps needs to be examined. Ships can not overlap each other. For the player these ship placements stay hidden.
+To place the ships on the map random coordinates and orientation need to be generated and overlaps need to be examined. Ships can not overlap each other. For the player, these ship placements stay hidden.
+
 ```
 
 The checklist contains all the steps necessary to create ships classes, and add ships objects to the map following the above discussed rules.
@@ -201,10 +204,10 @@ The end game card defines in the description the user story and additional infor
 
 ```txt
 who: As a Player
-Functionality: I want to end the game any time or want the game end when I sank all of the ship.
+Functionality: I want to end the game any time or want the game to end when I sank all of the ships.
 Benefit: so I can quit.
 
-Naturally there are two ways to end the game, one is when the Player quit during the game, the other is when the Player has hit all the ships. 
+Naturally, there are two ways to end the game, one is when the Player quit during the game, and the other is when the Player has hit all the ships. 
 ```
 
 The checklist contains all the steps necessary to check the user input if that an x, write message and exit the game, in case there is no ships alive display the congratulation message and exit the game.
@@ -218,6 +221,22 @@ Most of the nice to have ideas were implemented in the game, such as ASCII art, 
 Trello Board on 14/12/2022, showing that the features and optionals(most of them) were done. Bash script writing and documentation are ongoing tasks.
 
 ![Trello Board 141222](./docs/221214%20TrelloBoard.png)
+
+Trello Board at the end of the day 14/12/2022, all other task is finished, only slide deck, presentation and zipping file left and to check if the mandatory requirements are fulfilled.
+
+![Trello Board 141222 EOD](./docs/221214EOFDTrelloBoard.png)
+
+Trello Board on 15/12/2022, showing that slide deck is in the ongoing column, next will be the youtube presentation.
+
+![Trello Board 151222](./docs/221215TrelloBoard.png)
+
+The day before the due date, I still need to record the presentation and then upload the file to canvas.
+
+![Trello Board 171222](./docs/221217TrelloBoard.png)
+
+And the assessment is officially submitted.
+
+
 
 # Help documentation
 
