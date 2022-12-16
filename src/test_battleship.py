@@ -140,3 +140,25 @@ def test_y_translator():
     test_coordinate = ['F', 4]
     y = player.y_coordinate_translator(test_coordinate)
     assert y == 3
+
+
+# test if map is updated after a missed shot, ships are not placed
+# on the map, so we can be sure that it is a missed shot.
+# this tests the shoot_and_feedback method
+def test_missed_shot():
+    test_map = Game_map()
+    test_map.create_game_map()
+    test_map.shoot_and_feedback(5, 4)
+    map = test_map.get_game_map()
+    assert map[4][5] == '~'
+
+
+# test if map is updated after ships are placed and shoot_and_feedback method
+# was called with coordinates. the map has to be updated with a ~ or an X .
+def test_shot():
+    test_map = Game_map()
+    test_map.create_game_map()
+    test_map.add_ships()
+    test_map.shoot_and_feedback(5, 4)
+    map = test_map.get_game_map()
+    assert ((map[4][5] == '~') or (map[4][5] == 'X'))
