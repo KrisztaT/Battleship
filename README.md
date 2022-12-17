@@ -121,7 +121,7 @@ The end game is implemented in different methods (might not qualify as a separat
 
 [Trello Board](https://trello.com/b/aTdTEYkF/battleship-lite)
 
-Trello Board initial setup of the cards, as the development progresses the cards will be updated.
+Trello Board initial setup of the cards, as the development progresses the cards will be updated. The feature cards' order in the todo column define their priority order as well. It is also important, that the features build upon each other, for example there is no ship placement possible without a game map and so on.
 
 ![Trello Board 081222](./docs/221208Trello.png)
 
@@ -239,14 +239,15 @@ And the assessment is officially submitted.
 
 # Help documentation
 
-## Hardware and software requirements/ Prerequisits to install python
+## Hardware and software requirements/ Prerequisites to install python from script
 
-* Debian on computer or using WSL terminal with a minimum of 2GB RAM and 5GB of disk space
+* A computer running Debian or using WSL terminal
+* Minimum of 2GB RAM and 5GB of disk space
 * Sudo access on the system to install Python on Linux.
 
 To run the program the minimum hardware and software requirements are the same as for running python on your computer.
 
-## How to run the python code the first time from zip file
+## How to run the python code the first time from a zip file
 
 * Open your terminal
 * Unzip files to a subdirectory (type in your terminal _unzip KrisztinaTesenyi_T1A3.zip -d battleship_)
@@ -292,3 +293,11 @@ To run the program the minimum hardware and software requirements are the same a
 * Now, that python3, pip3 and virtualenv are installed on your computer, the script install the packages used for running the code if you put it in a new directory with the game code, otherwise it just starts the game.
 
 **Note**: This application was created with Python 3.11.0, however I made changes to the code so it should run on lower versions as well. Although, if you have issues, please run it on 3.11.
+
+## How to play the Battleship Lite game
+
+![How to 1](./docs/how_to_use_1.png)
+![How to 2](./docs/how_to_use_2.png)
+![How to 3](./docs/how_to_use_3.png)
+![How to 4](./docs/how_to_use_4.png)
+![How to 5](./docs/how_to_use_5.png)
