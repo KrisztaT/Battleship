@@ -7,7 +7,7 @@ import regex
 from tabulate import tabulate
 from random import randint
 from random import choice
-from termcolor import cprint
+from termcolor import cprint, colored
 from pyfiglet import figlet_format
 
 
@@ -149,10 +149,11 @@ class Game_map:
                     ship_life = ship.get_life()
             self.game_map[y][x] = 'X'
             if (ship_life > 0):
-                self.msg = 'Hit a ' + ship_name + ' that has ' \
-                            + str(ship_life) + ' life left.'
+                self.msg = colored('Hit a ' + ship_name + ' that has '
+                                   + str(ship_life) + ' life left.', 'green')
             else:
-                self.msg = 'Good Job! You have sunk a ' + ship_name + "."
+                self.msg = colored('Good Job! You have sunk a ' + ship_name
+                                   + ".", 'green')
 
     # check if any ship is still alive
     def check_any_ship_alive(self):
@@ -265,8 +266,9 @@ class Player:
     def handle_shot_coordinates(self, map):
         while map.check_any_ship_alive():
             try:
-                coordinates = input('Please enter the coordinates (i.e.: A,5) '
-                                    + 'or an x to exit: ')
+                prompt = colored('Please enter the coordinates (i.e.: A,5) '
+                                 + 'or an x to exit: ', 'yellow')
+                coordinates = input(prompt)
                 if coordinates == 'x' or coordinates == 'X':
                     sys.exit('You chose to exit the game. Bye!')
                 else:
@@ -309,10 +311,13 @@ class Player:
 
 
 def main():
-    # Create player object and call its methods to greet the player
+    # Create player object and call its methods to greet the player and
+    # handle shotcoordinates
     player = Player()
     player.greet_player()
-    # Create game map object and call its methods to create and print game map
+
+    # Create game map object and call its methods to create, print game
+    # map and add ships
     game_map = Game_map()
     game_map.create_game_map()
     game_map.add_ships()

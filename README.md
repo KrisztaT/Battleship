@@ -53,13 +53,16 @@ After the map is built and the ships are arranged on the map, the Player can sta
 
 # Source control repository
 
-[Battleship Lite Github Repository](https://github.com/KrisztaT/Battleship)
-[Presentation video](https://youtube.com)
+[Battleship Lite Github Repository](https://github.com/KrisztaT/Battleship)  
+[Presentation video](https://youtu.be/G9mrq57ohAU)  
+[Trello Board](https://trello.com/b/aTdTEYkF/battleship-lite)
 
 # Style Convention
 
-**PEP 8** was utilised as a code style during the development of the terminal application. I enabled linting in VSC and installed the pycodestyle (pep8) extension to aid me.
+**PEP 8** [^1] was utilised as a code style during the development of the terminal application. I enabled linting in VSC and installed the pycodestyle (pep8) extension to aid me.
 Standard python code convention was also followed to achieve a code that has no syntactical error and runs smoothly.
+
+[^1]: https://peps.python.org/pep-0008/
 
 # Features
 
@@ -234,16 +237,17 @@ The day before the due date, I still need to record the presentation and then up
 
 ![Trello Board 171222](./docs/221217TrelloBoard.png)
 
-And the assessment is officially submitted.
+And the project is officially done on 18/12/2022.
 
+![Trello Board 171222](./docs/221218TrelloBoard.png)
 
 # Help documentation
 
 ## Hardware and software requirements/ Prerequisites to install python from script
 
-* A computer running Debian or using WSL terminal
+* A computer running Debian, debian type distributions (such as ubuntu), Windows using WSL2 terminal or MacOs.
 * Minimum of 2GB RAM and 5GB of disk space
-* Sudo access on the system to install Python on Linux.
+* Sudo access on the system/WSL2 to install Python on Linux.
 
 To run the program the minimum hardware and software requirements are the same as for running python on your computer.
 

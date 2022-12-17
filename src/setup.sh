@@ -1,20 +1,20 @@
 #!/bin/bash
 
 : <<'END'
-I only test for python 3 avilability because I only tested my code running with that version,
+I only check for python3 avilability because I  tested my code running with that version,
 and if someone uses python alias python3, pip3 commands still work.
 END
 
 if  ! [[ -x "$(command -v python3)" ]]
 then
   echo 'It looks like Python3 is not installed on your computer, let me fix that for you.'
-  sudo apt-get install python3
+  sudo apt install python3 -y
 fi
 
 if ! [[ -x "$(command -v pip3)" ]]
 then
   echo 'There is no pip3 installed on your computer, let me install it for you.' 
-  sudo apt install python3-pip
+  sudo apt install python3-pip -y
 fi
 
 if ! [[ -x "$(command -v ~/.local/bin/virtualenv)" ]]
