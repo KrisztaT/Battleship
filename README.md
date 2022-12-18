@@ -256,11 +256,15 @@ To run the program the minimum hardware and software requirements are the same a
 * Open your terminal
 * Unzip files to a subdirectory (type in your terminal _unzip KrisztinaTesenyi_T1A3.zip -d battleship_)
 * Go to the battleship/src directory (type in your terminal _cd battleship/KrisztinaTesenyi_T1A3/src_)
-* To make the script executable run the following command in your terminal (_chmod +x setup.sh_)
-* Type _./setup.sh_ command in your terminal
-* The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have any of that installed, the script will automatically install those for you. It is important to type Y and press enter when the terminal asks you to do the install.
-* In the next step, a virtual environment is created in the folder, where you ran the ./setup.sh command.
-* Additional python packages that needed to run the code will be installed to your virtual environment.
+
+Linux/WSL2 | MacOS|
+--- | --- |
+To make the script executable run the following command in your terminal (_chmod +x setup.sh_) | To make the script executable run the following command in your terminal (_chmod +x setup_mac.sh_) |
+Type _./setup.sh_ command in your terminal | Type _./setup_mac.sh_ command in your terminal |
+The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have any of that installed, the script will automatically install those for you. It is important to type Y and press enter when the terminal asks you to do the install. | The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have python3 installed, first homebrew will be installed automatically and then the others.|
+In the next step, a virtual environment is created in the folder, where you ran the ./setup.sh command. | In the next step, a virtual environment is created in the folder, where you ran the ./setup_mac.sh command. |
+
+* Following the virtual environment creation, additional python packages that needed to run the code will be installed to your virtual environment.
   * Packages also can be found in the requirements.txt file
     * pyfiglet==0.8.post1
     * pytest==7.2.0 (only to run automated tests)
@@ -276,11 +280,15 @@ To run the program the minimum hardware and software requirements are the same a
 * Type _cd battleship_ to go to the created directory where you will clone the battleship game from GitHub.
 * Type _git clone https://github.com/KrisztaT/Battleship.git_, then press enter and wait until cloning is finished.
 * Then enter the src directory (_cd src_)
- To make the script executable run the following command in your terminal (_chmod +x setup.sh_)
-* Type _./setup.sh_ command in your terminal
-* The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have any of that installed, the script will automatically install those for you. It is important to type Y and press enter when the terminal asks you to do the install.
-* In the next step, a virtual environment is created in the folder, where you ran the ./setup.sh command.
-* Additional python packages that needed to run the code will be installed to your virtual environment.
+
+ Linux/WSL2 | MacOS|
+--- | --- |
+To make the script executable run the following command in your terminal (_chmod +x setup.sh_) | To make the script executable run the following command in your terminal (_chmod +x setup_mac.sh_) |
+Type _./setup.sh_ command in your terminal | Type _./setup_mac.sh_ command in your terminal |
+The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have any of that installed, the script will automatically install those for you. It is important to type Y and press enter when the terminal asks you to do the install. | The file checks if you have python3, pip3 and virtualenv installed on your computer. These are needed to run the code. In case you do not have python3 installed, first homebrew will be installed automatically and then the others.|
+In the next step, a virtual environment is created in the folder, where you ran the ./setup.sh command. | In the next step, a virtual environment is created in the folder, where you ran the ./setup_mac.sh command. |
+
+* Following the virtual environment creation, additional python packages that needed to run the code will be installed to your virtual environment.
   * Packages also can be found in the requirements.txt file
     * pyfiglet==0.8.post1
     * pytest==7.2.0 (only to run automated tests)
@@ -289,9 +297,11 @@ To run the program the minimum hardware and software requirements are the same a
     * termcolor==2.1.1
 * Then at last the Battleship game will run and asks your name to start. Enjoy!
 
+Note: If any error happens during the execution of the script, the script will send you an error message and exits to help tou locate the problem. Once the problem solved, run the script again, so it can continue the setup.
+
 ## After the first run
 
-* After the _setup.sh_ was run, you can use the _run.sh_ script to execute the battleship game in any of the folder on your computer.
+* After the _setup.sh_ or _setup_mac.sh_ was run, you can use the _run.sh_ script to execute the battleship game in any of the folder on your computer.
 * To do that type _chmod +x run.sh_ in your terminal
 * Then type _./run.sh_ command in your terminal
 * Now, that python3, pip3 and virtualenv are installed on your computer, the script install the packages used for running the code if you put it in a new directory with the game code, otherwise it just starts the game.
