@@ -241,6 +241,10 @@ And the project is officially done on 18/12/2022.
 
 ![Trello Board 171222](./docs/221218TrelloBoard.png)
 
+# Test
+
+Please find the automated tests in the **test_battleship.py** file. The comments outline the test's goal and expected result. Test can be run using pytest. I also made tests manually, hence I left some comments in the code regarding that.
+
 # Help documentation
 
 ## Hardware and software requirements/ Prerequisites to install python from script
@@ -279,7 +283,7 @@ In the next step, a virtual environment is created in the folder, where you ran 
 * Create a directory using _mkdir battleship_.
 * Type _cd battleship_ to go to the created directory where you will clone the battleship game from GitHub.
 * Type _git clone https://github.com/KrisztaT/Battleship.git_, then press enter and wait until cloning is finished.
-* Then enter the src directory (_cd src_)
+* Then enter the src directory (_cd Battleship/src_)
 
  Linux/WSL2 | MacOS|
 --- | --- |
@@ -297,7 +301,12 @@ In the next step, a virtual environment is created in the folder, where you ran 
     * termcolor==2.1.1
 * Then at last the Battleship game will run and asks your name to start. Enjoy!
 
-Note: If any error happens during the execution of the script, the script will send you an error message and exits to help tou locate the problem. Once the problem solved, run the script again, so it can continue the setup.
+Note: If any error happens during the execution of the script, the script will send you an error message to help you locate the problem and exits. Please find information in one of the following sources to resolve the issue.
+* [Homebrew](https://brew.sh/)
+* [How to install python 3](https://wsvincent.com/install-python/#install-python-on-macos)
+* [Python 3](https://www.python.org/downloads/)
+* [How to install pip 3](https://stackoverflow.com/questions/6587507/how-to-install-pip-with-python-3)  
+Once the problem solved, run the script again, so it can continue the setup automatically.
 
 ## After the first run
 

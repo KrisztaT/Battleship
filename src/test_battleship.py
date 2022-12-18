@@ -3,8 +3,10 @@ from battleship import Game_map
 from battleship import Player
 
 
-#  test_create_game_map() examines whether a game map has been built up
-# or not. If it was, the length of list should be bigger than 0 (not empty).
+# Test case: test_create_game_map() examines whether a game map has been built
+# up or not.
+# Expected behavior: If map was created, the length of 2D list should be
+# bigger than 0 (not empty).
 def test_create_game_map():
     test_map = Game_map()
     test_map.create_game_map()
@@ -13,8 +15,10 @@ def test_create_game_map():
     assert len(map) > 0
 
 
-# test_game_map_row() examines the number of rows of the 2D list, which is
-# the game map. 10 rows should be created.
+# Test case:test_game_map_row() examines the number of rows of the 2D list,
+# which is the game map. This test checks the game map building as well.
+# Expected behavior: 10 rows should be created, in case the map is successfully
+# built up.
 def test_game_map_row():
     test_map = Game_map()
     test_map.create_game_map()
@@ -27,8 +31,10 @@ def test_game_map_row():
     assert rows == 10
 
 
-# test_carrier_placement() examines if the carrier ship is placed
-# on the map
+# Test case: test_carrier_placement() examines if the carrier ship is placed
+# on the map. This test checks if the add_ships method works as intended.
+# Expected behavior: 5 (map id for carrier) should be found in the game map
+# list.
 def test_carrier_placement():
     test_map = Game_map()
     test_map.create_game_map()
@@ -42,6 +48,9 @@ def test_carrier_placement():
 # ships are placed in a continuos horizontal or vertical line, hence
 # counting how many 5s (carrier ship id) can be seen in the map gives
 # back the carrier's length (5)
+# Test case: examine ship length of the carrier. This test checks if the
+# add_ships method works as intended.
+# Expected behavior: 5 should appear 5 times in the list (game map)
 def test_carrier_length():
     test_map = Game_map()
     test_map.create_game_map()
@@ -50,7 +59,10 @@ def test_carrier_length():
     assert sum(row.count(5) for row in map) == 5
 
 
-# test_battleship_placement() examines if the battleship is placed on the map
+# Test case: test_battleship_placement() examines if the battleship is placed
+# on the map. This test checks if the add_ships method works as intended.
+# Expected behavior: 4 (map id for battleship) should be found in the game map
+# list.
 def test_battleship_placement():
     test_map = Game_map()
     test_map.create_game_map()
@@ -60,7 +72,9 @@ def test_battleship_placement():
     # map_id is 4, so that is what I looked for
 
 
-# Battleship length examination, ship length is 4.
+# Test case: examine ship length of the battleship. This test checks if the
+# add_ships method works as intended.
+# Expected behavior: 4 should appear 4 times in the list (game map)
 def test_battleship_length():
     test_map = Game_map()
     test_map.create_game_map()
@@ -69,7 +83,10 @@ def test_battleship_length():
     assert sum(row.count(4) for row in map) == 4
 
 
-# test_cruiser_placement() examines if the cruiser is placed on the map
+# Test case: test_cruiser_placement() examines if the cruiser is placed
+# on the map. This test checks if the add_ships method works as intended.
+# Expected behavior: 3 (map id for cruiser) should be found in the game map
+# list.
 def test_cruiser_placement():
     test_map = Game_map()
     test_map.create_game_map()
@@ -79,7 +96,9 @@ def test_cruiser_placement():
     # ship map_id is 3, so that is what I looked for
 
 
-# Cruiser ship length examination, ship length is 3.
+# Test case: examine ship length of the cruiser. This test checks if the
+# add_ships method works as intended.
+# Expected behavior: 3 should appear 3 times in the list (game map)
 def test_cruiser_length():
     test_map = Game_map()
     test_map.create_game_map()
@@ -88,7 +107,10 @@ def test_cruiser_length():
     assert sum(row.count(3) for row in map) == 3
 
 
-# test_destroyer_placement() examines if the destroyer is placed on the map
+# Test case: test_destroyer_placement() examines if the destroyer is placed
+# on the map. This test checks if the add_ships method works as intended.
+# Expected behavior: 2 (map id for cruiser) should be found in the game map
+# list.
 def test_destroyer_placement():
     test_map = Game_map()
     test_map.create_game_map()
@@ -98,7 +120,9 @@ def test_destroyer_placement():
     # ship map_id is 2, so that is what I looked for in the map
 
 
-# Destroyer ship length examination, ship length is 2.
+# Test case: examine ship length of the destroyer. This test checks if the
+# add_ships method works as intended.
+# Expected behavior: 2 should appear 2 times in the list (game map)
 def test_destroyer_length():
     test_map = Game_map()
     test_map.create_game_map()
@@ -107,7 +131,10 @@ def test_destroyer_length():
     assert sum(row.count(2) for row in map) == 2
 
 
-# test_submarine_placement() examines if the submarine is placed on the map
+# Test case: test_submarine_placement() examines if the submarine is placed
+# on the map. This test checks if the add_ships method works as intended.
+# Expected behavior: 1 (map id for cruiser) should be found in the game map
+# list.
 def test_submarine_placement():
     test_map = Game_map()
     test_map.create_game_map()
@@ -117,7 +144,9 @@ def test_submarine_placement():
     # map_id is 1, so that is what I looked for
 
 
-# Submarine ship length examination, ship length is 3.
+# Test case: examine ship length of the submarine. This test checks if the
+# add_ships method works as intended.
+# Expected behavior: 1 should appear 3 times in the list (game map)
 def test_submarine_length():
     test_map = Game_map()
     test_map.create_game_map()
@@ -126,7 +155,9 @@ def test_submarine_length():
     assert sum(row.count(1) for row in map) == 3
 
 
-# test x coordinate translator
+# Test case: test_x_translator test x coordinate translator
+# Expected behavior: based on the input first element (F), gives back the
+# value pair that is assigned to the F key. In this case 5.
 def test_x_translator():
     player = Player()
     test_coordinate = ['F', 4]
@@ -134,7 +165,9 @@ def test_x_translator():
     assert x == 5
 
 
-# test y coordinate translator
+# Test case: test_y_translator test y coordinate translator
+# Expected behavior: based on the input second element (4), gives back a value
+# that subtracted by 1. In this case it is 3.
 def test_y_translator():
     player = Player()
     test_coordinate = ['F', 4]
@@ -142,9 +175,10 @@ def test_y_translator():
     assert y == 3
 
 
-# test if map is updated after a missed shot, ships are not placed
+# Test case: test if map is updated after a missed shot, ships are not placed
 # on the map, so we can be sure that it is a missed shot.
-# this tests the shoot_and_feedback method
+# This tests the shoot_and_feedback method
+# Expected behavior, ~ will appear at the coordinates on the map.
 def test_missed_shot():
     test_map = Game_map()
     test_map.create_game_map()
@@ -153,8 +187,11 @@ def test_missed_shot():
     assert map[4][5] == '~'
 
 
-# test if map is updated after ships are placed and shoot_and_feedback method
-# was called with coordinates. the map has to be updated with a ~ or an X .
+# Test case: test if map is updated after ships are placed and
+# shoot_and_feedback method was called with coordinates.
+# This tests the shoot_and_feedback method
+# Expected behavior: The map has to be updated with a ~ or an X at the
+# coordinates on the map.
 def test_shot():
     test_map = Game_map()
     test_map.create_game_map()
