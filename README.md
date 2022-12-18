@@ -76,12 +76,12 @@ The map is created for the player to start the game, which first is an empty map
 
 ## 3. Ship placement
 
-The application automatically places the ships on the map, this process can not be observed by the player because it is hidden. There are two main rules of ship placement that the application must follow:
+The application automatically and randomly places the ships on the map, this process can not be observed by the player because it is hidden. There are two main rules of the ship placement that the application must follow:
 
 * ships can not overlap
 * ships can not hang off the map
 
-To place the ships on the map first coordinates and orientation are randomly generated. To follow the rules, these coordinates are examined based on the orientation to see if another ship is placed on the coordinate and the whole ship length or not and if the ship would hang off the map starting from the given coordinate. If another ship is placed or the ship would hang off using the generated coordinate, a new coordinate generation will take place and the examination starts from scratch. In case no other ship is on the ship length and wouldn't go out of the boundaries of the map, the ship is placed on the map.
+To place the ships on the map first coordinates and orientation are randomly generated. To follow the rules, these coordinates are examined based on the orientation to see if there is another ship placed on any of the gird from the random location to random location plus ship length and if the ship would hang off the map if placement starts from the given coordinates. If another ship is placed or the ship would hang off using the generated coordinate, a new coordinate generation will take place and the examination starts from scratch. In case no other ship is on the ship length and wouldn't go out of the boundaries of the map, the ship is placed on the map.
 
 Now let's see how these three features work together:
 

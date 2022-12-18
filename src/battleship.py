@@ -270,7 +270,8 @@ class Player:
                                  + 'or an x to exit: ', 'yellow')
                 coordinates = input(prompt)
                 if coordinates == 'x' or coordinates == 'X':
-                    sys.exit('You chose to exit the game. Bye!')
+                    print('You chose to exit the game. Bye!')
+                    sys.exit(0)
                 else:
                     coordinates_list = coordinates.split(',')
                     x = self.x_coordinate_translator(coordinates_list)
