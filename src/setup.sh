@@ -19,7 +19,7 @@ then
   test $? -ne 0 && echo "ERROR: installing pip3 had problems, will not continue" && exit 100
 fi
 
-if ! [[ -x "$(command -v python3 -m venv)" ]]
+if ! (pip3 show virtualenv &>/dev/null)
 then
   echo 'It looks like virtual environment is not installed on your computer, let me do it for you.'
   pip3 install virtualenv

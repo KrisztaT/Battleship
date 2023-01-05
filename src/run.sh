@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! [[ -x "$(command -v venv/bin/pip3)" ]]
+if ! (pip3 show virtualenv &>/dev/null)
 then
   python3 -m venv ./venv
   test $? -ne 0 && echo "ERROR: configuring virtualenv had problems, will not continue" && exit 100
