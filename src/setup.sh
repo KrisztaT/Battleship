@@ -22,7 +22,7 @@ fi
 if ! (pip3 show virtualenv &>/dev/null)
 then
   echo 'It looks like virtual environment is not installed on your computer, let me do it for you.'
-  pip3 install virtualenv
+  sudo apt-get install python3-venv
   test $? -ne 0 && echo "ERROR: installing virtualenv had problems, will not continue" && exit 100
 fi
 
