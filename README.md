@@ -302,6 +302,7 @@ In the next step, a virtual environment is created in the folder, where you ran 
 * Then at last the Battleship game will run and asks your name to start. Enjoy!
 
 Note: If any error happens during the execution of the script, the script will send you an error message to help you locate the problem and exits. Please find information in one of the following sources to resolve the issue.
+
 * [Homebrew](https://brew.sh/)
 * [How to install python 3](https://wsvincent.com/install-python/#install-python-on-macos)
 * [Python 3](https://www.python.org/downloads/)

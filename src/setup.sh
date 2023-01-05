@@ -19,14 +19,14 @@ then
   test $? -ne 0 && echo "ERROR: installing pip3 had problems, will not continue" && exit 100
 fi
 
-if ! [[ -x "$(command -v ~/.local/bin/virtualenv)" ]]
+if ! [[ -x "$(command -v python3 -m venv)" ]]
 then
   echo 'It looks like virtual environment is not installed on your computer, let me do it for you.'
   pip3 install virtualenv
   test $? -ne 0 && echo "ERROR: installing virtualenv had problems, will not continue" && exit 100
 fi
 
-~/.local/bin/virtualenv venv
+python3 -m venv ./venv
 test $? -ne 0 && echo "ERROR: configuring virtualenv had problems, will not continue" && exit 100
 venv/bin/pip3 install -r requirements.txt
 test $? -ne 0 && echo "ERROR: installing pip packages had problems, will not continue" && exit 100
