@@ -22,12 +22,13 @@ fi
 if ! (pip3 show virtualenv &>/dev/null)
 then
   echo 'It looks like virtual environment is not installed on your computer, let me do it for you.'
-  sudo apt-get install python3-venv
+  pip3 install virtualenv
+  # sudo apt-get install python3-venv
   test $? -ne 0 && echo "ERROR: installing virtualenv had problems, will not continue" && exit 100
 fi
 
 python3 -m venv ./venv
-test $? -ne 0 && echo "ERROR: configuring virtualenv had problems, will not continue" && exit 100
+test $? -ne 0 && echo "ERROR: configuring virtualenv had problems, please run 'sudo apt-get install python3-venv' then use run.sh" && exit 100
 venv/bin/pip3 install -r requirements.txt
 test $? -ne 0 && echo "ERROR: installing pip packages had problems, will not continue" && exit 100
 
