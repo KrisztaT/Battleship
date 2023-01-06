@@ -28,7 +28,7 @@ then
 fi
 
 python3 -m venv ./venv
-test $? -ne 0 && echo "ERROR: configuring virtualenv had problems, please run 'sudo apt-get install python3-venv' then use run.sh" && exit 100
+test $? -ne 0 && echo "ERROR: configuring virtualenv had problems, please run 'sudo apt-get install python3-venv' then use setup.sh again" && exit 100
 venv/bin/pip3 install -r requirements.txt
 test $? -ne 0 && echo "ERROR: installing pip packages had problems, will not continue" && exit 100
 
